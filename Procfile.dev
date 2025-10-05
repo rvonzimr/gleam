@@ -1,0 +1,2 @@
+server: just server/dev
+client: just client/dev

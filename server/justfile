@@ -1,0 +1,11 @@
+test:
+    gleam test
+
+build:
+    gleam build
+
+clean:
+    gleam clean
+
+dev:
+    gleam run -m server_dev
