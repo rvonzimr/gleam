@@ -1,4 +1,4 @@
-import app/entry
+import app/web
 import gleam/io
 import radiate
 
@@ -9,5 +9,5 @@ pub fn main() {
     |> radiate.add_dir(".")
     |> radiate.start()
 
-  entry.start()
+  web.start()
 }
