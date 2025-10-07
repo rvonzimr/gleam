@@ -2,8 +2,12 @@
 inputs:
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
-
-# If you're using non-OSS software, you can set allowUnfree to true.
+secretspec:
+  enable: true
+  provider: dotenv # keyring, dotenv, env, 1password, lastpass
+  profile: default # profile from secretspec.toml
+  #
+  # If you're using non-OSS software, you can set allowUnfree to true.
 # allowUnfree: true
 
 # If you're willing to use a package that's vulnerable

@@ -11,8 +11,6 @@ let
 
 in
 {
-  # https://devenv.sh/basics/
-  env.GREET = "devenv";
 
   # https://devenv.sh/packages/
   packages = [
@@ -49,7 +47,7 @@ in
   services.postgres = {
     enable = true;
     initialScript = ''
-      CREATE USER ${db_user} WITH_PASSWORD postgres;
+      CREATE USER ${db_user} WITH SUPERUSER PASSWORD 'postgres';
     '';
     initialDatabases = [ { name = db_name; } ];
   };
