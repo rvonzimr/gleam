@@ -4,7 +4,7 @@ inputs:
     url: github:cachix/devenv-nixpkgs/rolling
 secretspec:
   enable: true
-  provider: dotenv # keyring, dotenv, env, 1password, lastpass
+  provider: keyring # keyring, dotenv, env, 1password, lastpass
   profile: default # profile from secretspec.toml
   #
   # If you're using non-OSS software, you can set allowUnfree to true.
