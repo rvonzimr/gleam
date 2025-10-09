@@ -29,4 +29,4 @@ valid = ">= 5.0.0 and < 6.0.0"
 
 [dev-dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
-cigogne = {git = "git@github.com:rvonzimr/cigogne.git", ref = "0c80e727c7a5bf7aa6476e0afb07fcf733e31247"}
+cigogne = {git = "git@github.com:rvonzimr/cigogne.git", ref = "1bb444c1a1605933d93df060df6af015bcb121be"}
