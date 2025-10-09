@@ -4,7 +4,7 @@ build
 erl_crash.dump
 .direnv
 .env
-priv
+priv/static
 
 # Devenv
 .devenv*

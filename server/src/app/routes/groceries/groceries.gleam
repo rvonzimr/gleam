@@ -18,7 +18,7 @@ fn get_groceries(
   id: Int,
 ) -> Result(List(groceries.GroceryItem), error.Error) {
   let try_contents =
-    result.map_error(sql.get_grocery_list(db, id), fn(_) { error.QueryError })
+    result.map_error(sql.get_grocery_list(db, id), error.query_error)
     |> result.map(fn(returned) { returned.rows })
 
   use grocery_rows <- result.try(try_contents)
@@ -37,13 +37,13 @@ fn parse_query(
   let parsed_request =
     query
     |> list.key_find(field)
-    |> result.map_error(fn(_) { error.MissingParameters([field]) })
+    |> result.replace_error(error.MissingParameters([field]))
 
   parsed_request
   |> result.try(fn(id) {
     id
     |> int.parse()
-    |> result.map_error(fn(_) { error.InvalidParameters(fields: [field]) })
+    |> result.replace_error(error.InvalidParameters(fields: [field]))
   })
   |> result.map(GroceryRequest)
 }

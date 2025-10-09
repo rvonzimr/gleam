@@ -42,9 +42,12 @@
               rebar3
               tailwindcss_4
               tailwindcss-language-server
+              nil
+              nixd
               nodejs_latest
               just
               overmind
+
             ];
           };
         }

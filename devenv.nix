@@ -1,6 +1,6 @@
 {
   pkgs,
-  _lib,
+  lib,
   config,
   _inputs,
   ...
@@ -21,34 +21,28 @@ in
     pkgs.nodejs
     pkgs.tailwindcss-language-server
     pkgs.tailwindcss_4
-    pkgs.inotify-tools
     pkgs.dbmate
     pkgs.package-version-server
     pkgs.postgres-lsp
+  ] ++ lib.optionals pkgs.stdenv.isLinux [
+    pkgs.inotify-tools
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [
+    pkgs.libiconv
   ];
 
   languages.gleam.enable = true;
   dotenv.enable = true;
   dotenv.filename = [ ".env.local" ];
 
-  processes = {
-    client = {
-      exec = "gleam run -m lustre/dev start";
-      cwd = "${config.git.root}/client";
-    };
-
-    server = {
-      exec = "gleam dev";
-      cwd = "${config.git.root}/server";
-      process-compose.depends_on.postgres.condition = "process_healthy";
-    };
-  };
 
   services.postgres = {
     enable = true;
     initialScript = ''
       CREATE USER ${db_user} WITH SUPERUSER PASSWORD 'postgres';
+      CREATE ROLE billuc;
+      CREATE USER billuc WITH PASSWORD 'password' LOGIN ROLE billuc;
     '';
+    listen_addresses = "localhost";
     initialDatabases = [ { name = db_name; } ];
   };
 
@@ -81,15 +75,19 @@ in
     };
 
     "db:new" = {
-      exec = "dbmate new $1";
+      exec = "gleam run -m cigogne new $1";
+      cwd = "${config.git.root}/server";
     };
 
-    "db:up" = {
-      exec = "dbmate up";
+    "db:all" = {
+      exec = "gleam run -m cigogne all";
+      cwd = "${config.git.root}/server";
+      before = ["devenv:processes:server"];
     };
 
     "db:down" = {
-      exec = "dbmate down";
+      exec = "gleam run -m cignone down";
+      cwd = "${config.git.root}/server";
     };
 
     "db:dump" = {
@@ -103,7 +101,6 @@ in
         "db/**/*"
       ];
       cwd = "${config.git.root}/server";
-      before = [ "db:up" ];
     };
   };
 
@@ -113,8 +110,16 @@ in
     git --version | grep --color=auto "${pkgs.git.version}"
   '';
 
-  # https://devenv.sh/git-hooks/
-  # git-hooks.hooks.shellcheck.enable = true;
+  processes = {
+    client = {
+      exec = "gleam run -m lustre/dev start";
+      cwd = "${config.git.root}/client";
+    };
 
-  # See full reference at https://devenv.sh/reference/options/
+    server = {
+      exec = "gleam dev";
+      cwd = "${config.git.root}/server";
+      process-compose.depends_on.postgres.condition = "process_healthy";
+    };
+  };
 }

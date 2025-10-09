@@ -32,7 +32,8 @@ pub fn handle_request(request: Request, ctx: Context) -> Response {
     Error(error.MissingParameters(fields)) -> {
       wisp.bad_request("Missing Parameters: " <> string.join(fields, ", "))
     }
-    Error(error.QueryError) -> {
+    Error(error.QueryError(reason)) -> {
+      wisp.log_error("Query Error: " <> reason)
       wisp.internal_server_error()
     }
   }
