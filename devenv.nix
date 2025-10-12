@@ -24,6 +24,9 @@ in
     pkgs.dbmate
     pkgs.package-version-server
     pkgs.postgres-lsp
+    pkgs.bun
+    pkgs.nixd
+    pkgs.nil
   ] ++ lib.optionals pkgs.stdenv.isLinux [
     pkgs.inotify-tools
   ] ++ lib.optionals pkgs.stdenv.isDarwin [

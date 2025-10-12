@@ -1,16 +1,12 @@
 import app/context.{type Context}
 import app/error.{type Error}
-import app/routes/groceries/groceries
 import gleam/string
 import wisp.{type Request, type Response}
 
-fn route(request: Request, ctx: Context) -> Result(Response, Error) {
+fn route(request: Request, _ctx: Context) -> Result(Response, Error) {
   case wisp.path_segments(request) {
     [] -> {
       Ok(wisp.html_response("Hi.", 200))
-    }
-    ["groceries"] -> {
-      groceries.handler(request, ctx)
     }
     _ -> {
       Ok(wisp.not_found())

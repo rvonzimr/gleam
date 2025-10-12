@@ -89,7 +89,7 @@ fn save_list(items: List(GroceryItem)) -> Effect(Msg) {
 }
 
 fn view(model: Model) -> Element(Msg) {
-  html.div([attribute.class("bg-primary-01 flex flex-col gap-4")], [
+  html.div([attribute.class("bg-gray-100 p-4 h-1 bg-red-50")], [
     html.h1([], [html.text("Grocery List")]),
     view_grocery_list(model.items),
     view_new_item(model.new_item),

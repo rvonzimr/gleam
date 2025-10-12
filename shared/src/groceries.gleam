@@ -5,13 +5,13 @@ pub type GroceryItem {
   GroceryItem(name: String, quantity: Int)
 }
 
-fn grocery_item_decoder() -> decode.Decoder(GroceryItem) {
+pub fn grocery_item_decoder() -> decode.Decoder(GroceryItem) {
   use name <- decode.field("name", decode.string)
   use quantity <- decode.field("quantity", decode.int)
   decode.success(GroceryItem(name:, quantity:))
 }
 
-pub fn grocery_list_decodeer() -> decode.Decoder(List(GroceryItem)) {
+pub fn grocery_list_decoder() -> decode.Decoder(List(GroceryItem)) {
   grocery_item_decoder()
   |> decode.list
 }
