@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "result": [
+    {
+      "update_id": 560801040,
+      "message": {
+        "message_id": 1,
+        "from": {
+          "id": 1847792691,
+          "is_bot": false,
+          "first_name": "Cole Fox\u00e9",
+          "username": "cole_fox",
+          "language_code": "en",
+          "is_premium": true
+        },
+        "chat": {
+          "id": 1847792691,
+          "first_name": "Cole Fox\u00e9",
+          "username": "cole_fox",
+          "type": "private"
+        },
+        "date": 1760401536,
+        "text": "/start",
+        "entities": [{ "offset": 0, "length": 6, "type": "bot_command" }]
+      }
+    }
+  ]
+}
