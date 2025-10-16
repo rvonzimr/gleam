@@ -27,16 +27,17 @@ in
     pkgs.bun
     pkgs.nixd
     pkgs.nil
-  ] ++ lib.optionals pkgs.stdenv.isLinux [
+  ]
+  ++ lib.optionals pkgs.stdenv.isLinux [
     pkgs.inotify-tools
-  ] ++ lib.optionals pkgs.stdenv.isDarwin [
+  ]
+  ++ lib.optionals pkgs.stdenv.isDarwin [
     pkgs.libiconv
   ];
 
   languages.gleam.enable = true;
   dotenv.enable = true;
   dotenv.filename = [ ".env.local" ];
-
 
   services.postgres = {
     enable = true;
@@ -85,7 +86,7 @@ in
     "db:all" = {
       exec = "gleam run -m cigogne all";
       cwd = "${config.git.root}/server";
-      before = ["devenv:processes:server"];
+      before = [ "devenv:processes:server" ];
     };
 
     "db:down" = {
